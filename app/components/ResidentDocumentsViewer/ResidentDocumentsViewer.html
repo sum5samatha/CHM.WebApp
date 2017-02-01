@@ -1,0 +1,119 @@
+﻿<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a ui-sref="ResidentInterventions({ResidentId:'{{vm.ResidentId}}'})" class="btn btn-primary pull-right">
+            <i class="fa fa-arrow-left"></i> Back
+        </a>
+    </div>
+</div>
+<h4>
+    <i class="fa fa-file-text"></i>Document Viewer
+</h4>
+<form class="form-horizontal">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <uib-accordion close-others="vm.OpenOnlyOneSection" class="">
+            <uib-accordion-group>
+                <uib-accordion-heading>
+                    <div class="">
+                        Assessment Documents
+                        <i class="pull-right fa" ng-class="{'fa-chevron-circle-down': status.open, 'fa-chevron-circle-right': !status.open}"></i>
+                    </div>
+                </uib-accordion-heading>
+
+                <div class="form-group">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8 ColoredTable">
+                        <table ng-table class="table ng-table-responsive">
+                            <tbody ng-show="vm.filteredResidentSectionQuestionAnswers.length>0">
+                                <tr ng-repeat="objResidentSectionQuestionAnswer in vm.filteredResidentSectionQuestionAnswers">
+                                    <td data-title="'Question'">{{objResidentSectionQuestionAnswer.ResidentQuestionAnswer.Sections_Questions_Answers.Sections_Questions.QuestionView | date : 'hh:mm a'}}</td>
+                                    <td data-title="'Document'"><a href={{objResidentSectionQuestionAnswer.ResidentFile}}  target="_blank">{{objResidentSectionQuestionAnswer.ResidentFileName}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-hide="vm.filteredResidentSectionQuestionAnswers.length>0">
+                                <tr>
+                                    <td colspan="4">
+                                        There are no Documents.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+
+            </uib-accordion-group>
+        </uib-accordion>
+
+        <uib-accordion close-others="vm.OpenOnlyOneSection" class="">
+            <uib-accordion-group>
+                <uib-accordion-heading>
+                    <div class="">
+                    Intervention Documents
+                        <i class="pull-right fa" ng-class="{'fa-chevron-circle-down': status.open, 'fa-chevron-circle-right': !status.open}"></i>
+                    </div>
+                </uib-accordion-heading>
+
+                <div class="form-group">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8 ColoredTable">
+                        <table ng-table class="table ng-table-responsive">
+                            <tbody ng-show="vm.filteredResidentInterventionsQuestionAnswer.length>0">
+                                <tr ng-repeat="objResidentInterQuestionAnswer in vm.filteredResidentInterventionsQuestionAnswer">
+                                    <td data-title="'Intervention Title'">{{objResidentInterQuestionAnswer.ResidentInterventions.Intervention_Question_Answer.Section_Intervention.InterventionTitle }}</td>
+                                    <td data-title="'Document'">
+                                        <a href={{objResidentInterQuestionAnswer.ResidentFile}} target="_blank">{{objResidentInterQuestionAnswer.ResidentFileName}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-hide="vm.filteredResidentInterventionsQuestionAnswer.length>0">
+                                <tr>
+                                    <td colspan="4">
+                                        There are no Documents.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </uib-accordion-group>
+        </uib-accordion>
+
+        <uib-accordion close-others="vm.OpenOnlyOneSection" class="">
+            <uib-accordion-group>
+                <uib-accordion-heading>
+                    <div class="">
+                       AdhocIntervention Documents
+                        <i class="pull-right fa" ng-class="{'fa-chevron-circle-down': status.open, 'fa-chevron-circle-right': !status.open}"></i>
+                    </div>
+                </uib-accordion-heading>
+
+                <div class="form-group">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8 ColoredTable">
+                        <table ng-table class="table ng-table-responsive">
+                            <tbody ng-show="vm.filteredResidentAdhocInterventionsQuestionAnswer.length>0">
+                                <tr ng-repeat="objResidentAdhocInterQuestionAnswer in vm.filteredResidentAdhocInterventionsQuestionAnswer">
+                                    <td data-title="'Intervention Title'">{{objResidentAdhocInterQuestionAnswer.ActionName}}</td>
+                                    <td data-title="'Document'">
+                                        <a href={{objResidentAdhocInterQuestionAnswer.ResidentFile}} target="_blank">{{objResidentAdhocInterQuestionAnswer.ResidentFileName}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-hide="vm.filteredResidentAdhocInterventionsQuestionAnswer.length>0">
+                                <tr>
+                                    <td colspan="4">
+                                        There are no Documents.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </uib-accordion-group>
+        </uib-accordion>
+
+    </div>
+</form>

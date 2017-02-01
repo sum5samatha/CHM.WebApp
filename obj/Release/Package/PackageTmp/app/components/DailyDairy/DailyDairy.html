@@ -1,0 +1,54 @@
+﻿<h4>
+    <i class="fa fa-book"></i> Daily Dairy-{{vm.Resident.FirstName}} {{vm.Resident.LastName}}
+</h4>
+<form class="form-horizontal">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Diary Date:</label>
+            <div class="col-sm-4">
+                <p class="input-group">
+                    <input type="text" name="DOB" class="form-control input-sm" is-date readonly ng-required="true" uib-datepicker-popup="{{DateFormat}}" ng-model="vm.DairyDate" is-open="vm.DairyDateOpened" datepicker-options="dateOptions" close-text="Close" ng-change="vm.GetDailyDairy(vm.DairyDate)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="vm.openDairyDate($event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-sm-5">
+                <!--<i class="fa fa-plus-square" ng-show="vm.Summary.length>0" ng-click="vm.ViewSummary();">Summary</i>-->
+                <!--<i class="fa fa-user" ng-show="vm.Summary.length>0" style="cursor:pointer;" ng-click="vm.ViewSummary();">View Summary</i>-->
+                <div ng-repeat="objSummary in vm.Summary track by $index">
+                    <h5 ng-if="$index<=3">{{vm.BindSummaary(objSummary)}}</h5>
+                    <a ng-if="$index==4" style="color:#5cc1af;" ng-show="vm.ReadHide" ng-click="vm.ReadMoreClick();">Read More....</a>
+                    <h5 ng-if="$index>=4" ng-hide="vm.ReadHide">{{vm.BindSummaary(objSummary)}}</h5>
+                    <a ng-if="$index==vm.Summary.length-1" style="color:#5cc1af;" ng-hide="vm.ReadHide" ng-click="vm.ReadLessClick();">Read Less....</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">        
+        <div class="col-sm-12 ColoredTable">
+            <table ng-table class="table ng-table-responsive">
+                <tbody ng-show="vm.Interventions.length>0">
+                    <tr ng-repeat="objIntervention in vm.Interventions | orderBy: 'PlannedStartDate'">
+                        <td data-title="'Time'">{{objIntervention.PlannedStartDate | date : 'hh:mm a'}}</td>
+                        <td data-title="'Intervention Title'">{{objIntervention.Actions_Days.Action.Section_Intervention.InterventionTitle}}</td>
+                        <td data-title="'Status'">{{objIntervention.Status}}</td>
+                        <td data-title="'Comment'">{{objIntervention.Comments}}</td>
+                        <td data-title="'Summary'">{{objIntervention.Summary}}</td>
+                    </tr>
+                </tbody>
+                <tbody ng-hide="vm.Interventions.length>0">
+                    <tr>
+                        <td colspan="4">
+                            There are no Interventions.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

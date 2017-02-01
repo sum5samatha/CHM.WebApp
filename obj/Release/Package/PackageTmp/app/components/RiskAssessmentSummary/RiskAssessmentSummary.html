@@ -1,0 +1,57 @@
+﻿<div>
+    <a ng-if="!vm.EditMode" ui-sref="ViewCarePlan({ResidentId:'{{vm.ResidentId}}'})" class="btn btn-primary pull-right" ng-show="vm.Resident.IsAccepted">
+        View Care Plan
+    </a>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a ng-if="vm.EditMode" ui-sref="EditResident({ResidentId:'{{vm.ResidentId}}'})" class="btn btn-primary pull-right">
+            <i class="fa fa-arrow-left"></i> Back
+        </a>
+        <a ng-if="!vm.EditMode" ui-sref="ViewResident({ResidentId:'{{vm.ResidentId}}'})" class="btn btn-primary pull-right">
+            <i class="fa fa-arrow-left"></i> Back
+        </a>
+    </div>
+</div>
+
+<h4>
+    <i class="fa fa-list"></i> Summary - {{vm.Resident.FirstName}} {{vm.Resident.LastName}}
+    <i class="fa fa-print" ng-click="vm.PrintElem('#mydiv')"></i>
+</h4>
+
+
+
+<div class="row" id="mydiv">
+    <ul>
+        <li ng-repeat="objSection in  vm.Sections| filter:{ HasAssesment: true }">
+            {{ objSection.Name }}
+            <p class="AssessmentGroup">
+                <span ng-repeat="objQuestion in objSection.Assessment | orderBy: 'DisplayOrder'">
+                    {{vm.BindSectionQuestion(objQuestion.Question)}} - <span class="AssessmentAnswer">{{vm.BindSectionQuestion(objQuestion.LabelTxt)}}</span><br />
+                   
+                    <span  ng-repeat="objIntervention in objQuestion.Intervention">
+                       
+                        <span style="color:#5cc1af;" ng-if="objIntervention.InterventionName!=''">{{objIntervention.InterventionName}} --<span class="AssessmentAnswer" ng-if="objIntervention.Type==''">No pattern</span> <span class="AssessmentAnswer" ng-if="objIntervention.Type!=''">StartDate:{{objIntervention.startDate| date}}| Type:{{objIntervention.Type}}| Occurence:{{objIntervention.Occurrence}}</span><br /></span>
+                    </span>
+              </span>
+            </p>
+        </li>
+
+    </ul>
+</div>
+
+<div class="row bottom10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" class="btn btn-primary pull-right" ng-show="!vm.Resident.IsAccepted" ng-click="vm.AcceptAsResident()">
+            Accept as Resident
+        </button>
+        <a ng-if="vm.EditMode" ui-sref="EditCarePlan({ResidentId:'{{vm.ResidentId}}'})" class="btn btn-primary pull-right" ng-show="vm.Resident.IsAccepted">
+            View Care Plan
+        </a>
+        <a ng-if="!vm.EditMode" ui-sref="ViewCarePlan({ResidentId:'{{vm.ResidentId}}'})" class="btn btn-primary pull-right" ng-show="vm.Resident.IsAccepted">
+            View Care Plan
+        </a>
+    </div>
+</div>
+
+

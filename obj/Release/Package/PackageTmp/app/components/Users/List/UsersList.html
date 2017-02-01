@@ -1,0 +1,41 @@
+﻿<h4>
+    <i class="fa fa-book"></i> Users
+</h4>
+<form class="form-horizontal">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <a ui-sref="NewUser" class="btn btn-primary pull-right" href="">
+            Add new User
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <br /><br />
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <div class="col-sm-12 ColoredTable">
+            <table ng-table="AllUsers" class="table ng-table-responsive">
+                <tbody ng-show="$data.length>0">
+                    <tr ng-repeat="objUsersList in $data">
+                        <!--<td data-title="'S.no'">{{$index+1}}</td>-->
+                        <td data-title="'Name'"><a style="text-decoration:underline;" ui-sref="ViewUser({ResidentId:'{{objUsersList.ID}}'})">{{objUsersList.UserName}}</a></td>
+                        <td data-title="'Role'">{{objUsersList.Users_Roles.length > 0 ? objUsersList.Users_Roles[0].Role.Name : '-'}}</td>
+                        <td data-title="'Designation'">{{objUsersList.Designation}}</td>
+                        <td data-title="'Actions'"><a href ng-click="vm.DeleteUser(objUsersList)" ng-show="objUsersList.UserName!= vm.Userinf"><i class="fa fa-trash-o"></i></a>
+                            <!--<a ui-sref="EditUser({ResidentId:'{{objUsersList.ID}}'})"></a></td>-->
+                    </tr>
+                </tbody>
+                <tbody ng-hide="$data.length>0">
+                    <tr>
+                        <td colspan="4">
+                            There are no Users.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,40 @@
+﻿<h4>
+    <i class="fa fa-book"></i> Ad Hoc Interventions
+</h4>
+<form class="form-horizontal">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <a ng-click="vm.GenrateIntervention()" class="btn btn-primary pull-right" href="">
+            Ad Hoc Interventions
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <br /><br />
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <div class="col-sm-12 ColoredTable">
+            <table ng-table="AllIntervention" class="table ng-table-responsive">
+                <tbody ng-show="$data.length>0">
+                    <tr ng-repeat="objInterventon in $data">
+                        <!--<td data-title="'S.no'">{{$index+1}}</td>-->
+                        <td data-title="'Resident'">{{objInterventon.Resident.FirstName}}</td>
+                        <!--<td data-title="'Created'">{{objInterventon.Created}}</td>-->
+                        <td data-title="'Intervention'">{{objInterventon.Section_Intervention.InterventionTitle}}</td>
+                        <td data-title="'Actions'"><a ng-click="vm.DeleteAdhocIntervention(objInterventon)"><i class="fa fa-trash-o"></i></a></td>
+                    </tr>
+                </tbody>
+                <tbody ng-hide="$data.length>0">
+                    <tr>
+                        <td colspan="4">
+                            There are no Ad hoc Interventions.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,21 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.CancelStatus()">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">Summary-{{vm.Resident.FirstName}} {{vm.Resident.LastName}} </h4>
+</div>
+<ng-form id="ViewSummary" name="ViewSummaryForm">
+    <div class="modal-body">
+        <div ng-repeat="objSummary in vm.Summary">
+            <ul>
+                <li>{{vm.BindSummaary(objSummary)}}</li>
+            </ul>
+</div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="vm.CancelStatus()">
+            Cancel
+        </button>
+    </div>
+</ng-form>

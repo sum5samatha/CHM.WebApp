@@ -1,0 +1,241 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.CloseRecurrencePattern()">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+        
+    </button>
+    <h4 class="modal-title">Ad Hoc Intervention</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <label for="ddlResident" class="col-sm-3 control-label">Resident</label>
+            <div class="col-sm-9">
+                <select id="ddlResident" class="form-control" ng-options="objResidents.ID as objResidents.FirstName for objResidents in  vm.Residents" ng-model="vm.ResidentIDs">
+                    <option value=''>Select</option>
+                </select>
+            </div>
+        </div>
+    </div><br />
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <label for="ddlIntervention" class="col-sm-3 control-label">Intervention</label>
+            <div class="col-sm-9">
+                <select id="ddlIntervention" class="form-control" ng-options="objSectionIntervention.ID as objSectionIntervention.InterventionTitle for objSectionIntervention in vm.sectionIntervention" ng-model="vm.sectionInterventionID">
+                    <option value=''>Select</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row RecurrencePatternSubHeading">
+        Recurrence Pattern
+    </div>
+    <div class="row bottom10">
+        <div class="hidden-xs visible-sm visible-md visible-lg col-sm-12 col-md-3 col-lg-3 RecurrencePattern">
+            <label class="col-xs-3 col-sm-3 col-md-12 col-lg-12">
+                <input type="radio" name="{{'RecurrenceType'+$index}}" value="Daily" ng-model="vm.Recurrence.RecurrenceType" ng-change="vm.RecurrenceChanged()"> Daily
+            </label>
+            <label class="col-xs-3 col-sm-3 col-md-12 col-lg-12">
+                <input type="radio" name="{{'RecurrenceType'+$index}}" value="Weekly" ng-model="vm.Recurrence.RecurrenceType" ng-change="vm.RecurrenceChanged()"> Weekly
+            </label>
+            <label class="col-xs-3 col-sm-3 col-md-12 col-lg-12">
+                <input type="radio" name="{{'RecurrenceType'+$index}}" value="Monthly" ng-model="vm.Recurrence.RecurrenceType" ng-change="vm.RecurrenceChanged()"> Monthly
+            </label>
+            <label class="col-xs-3 col-sm-3 col-md-12 col-lg-12">
+                <input type="radio" name="{{'RecurrenceType'+$index}}" value="Yearly" ng-model="vm.Recurrence.RecurrenceType" ng-change="vm.RecurrenceChanged()"> Yearly
+            </label>
+
+        </div>
+        <div class="visible-xs hidden-sm hidden-md hidden-lg col-xs-12 RecurrencePattern">
+            <select class="form-control input-sm" ng-model="vm.Recurrence.RecurrenceType" ng-change="vm.RecurrenceChanged()">
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <div ng-show="vm.Recurrence.RecurrenceType=='Daily'">
+                <div>
+                    Every <div class="RecurrenceTextBoxContainer" ng-class="{ 'has-error' : (AddTaskForm.DailyRecurrenceInterval.$error.required || AddTaskForm.DailyRecurrenceInterval.$error.pattern) && (AddTaskForm.DailyRecurrenceInterval.$dirty) }">
+                        <input type="text" ng-model="vm.Recurrence.RecurrenceInterval" name="DailyRecurrenceInterval" ng-required="vm.Recurrence.RecurrenceType=='Daily'" valid-number ng-pattern="/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/" maxlength="3" class="input-sm RecurrenceTextBox" />
+                    </div> day(s)
+                </div>
+                <br />
+            </div>
+            <div ng-show="vm.Recurrence.RecurrenceType=='Weekly'">
+                <div>
+                    Recur every <div class="RecurrenceTextBoxContainer" ng-class="{ 'has-error' : (AddTaskForm.weeklyRecurrenceInterval.$error.required || AddTaskForm.weeklyRecurrenceInterval.$error.pattern) && (AddTaskForm.weeklyRecurrenceInterval.$dirty) }">
+                        <input type="text" class="input-sm RecurrenceTextBox" name="weeklyRecurrenceInterval" ng-model="vm.Recurrence.RecurrenceInterval" ng-required="vm.Recurrence.RecurrenceType=='Weekly'" valid-number ng-pattern="/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/" maxlength="3" />
+                    </div> week(s) on
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3"><input type="checkbox" name="RecurrenceDay" value="Monday" ng-checked="vm.Recurrence.SelectedWeekDays.indexOf(1) > -1" ng-click="vm.ToggleWeekDaySelection(vm.Recurrence,1)"> Monday</label>
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3"><input type="checkbox" name="RecurrenceDay" value="Tuesday" ng-checked="vm.Recurrence.SelectedWeekDays.indexOf(2) > -1" ng-click="vm.ToggleWeekDaySelection(vm.Recurrence,2)"> Tuesday</label>
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3"><input type="checkbox" name="RecurrenceDay" value="Wednesday" ng-checked="vm.Recurrence.SelectedWeekDays.indexOf(3) > -1" ng-click="vm.ToggleWeekDaySelection(vm.Recurrence,3)"> Wednesday</label>
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3"><input type="checkbox" name="RecurrenceDay" value="Thursday" ng-checked="vm.Recurrence.SelectedWeekDays.indexOf(4) > -1" ng-click="vm.ToggleWeekDaySelection(vm.Recurrence,4)"> Thursday</label>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3"><input type="checkbox" name="RecurrenceDay" value="Friday" ng-checked="vm.Recurrence.SelectedWeekDays.indexOf(5) > -1" ng-click="vm.ToggleWeekDaySelection(vm.Recurrence,5)"> Friday</label>
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3"><input type="checkbox" name="RecurrenceDay" value="Saturday" ng-checked="vm.Recurrence.SelectedWeekDays.indexOf(6) > -1" ng-click="vm.ToggleWeekDaySelection(vm.Recurrence,6)"> Saturday</label>
+                        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-3"><input type="checkbox" name="RecurrenceDay" value="Sunday" ng-checked="vm.Recurrence.SelectedWeekDays.indexOf(0) > -1" ng-click="vm.ToggleWeekDaySelection(vm.Recurrence,0)"> Sunday</label>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div ng-show="vm.Recurrence.RecurrenceType=='Monthly'">
+                <div>
+                    <input type="radio" name="{{'MonthlyPattern'+$index}}" value="Date" ng-model="vm.Recurrence.MonthlyPattern"> Day
+                    <div class="RecurrenceTextBoxContainer" ng-class="{ 'has-error' : (AddTaskForm.MonthlyDayRecurrenceInterval.$error.required || AddTaskForm.MonthlyDayRecurrenceInterval.$error.pattern) && (AddTaskForm.MonthlyDayRecurrenceInterval.$dirty) }">
+                        <input type="text" class="input-sm RecurrenceTextBox" name="MonthlyDayRecurrenceInterval" ng-model="vm.Recurrence.RecurrenceDate" ng-required="vm.Recurrence.RecurrenceType=='Monthly' && vm.Recurrence.MonthlyPattern=='Date'" valid-number ng-pattern="/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/" maxlength="3" />
+                    </div> of every
+
+                    <div class="RecurrenceTextBoxContainer" ng-class="{ 'has-error' : (AddTaskForm.MonthlyMonthRecurrenceInterval.$error.required || AddTaskForm.MonthlyMonthRecurrenceInterval.$error.pattern) && (AddTaskForm.MonthlyMonthRecurrenceInterval.$dirty) }">
+                        <input type="text" class="input-sm RecurrenceTextBox" name="MonthlyMonthRecurrenceInterval" ng-model="vm.Recurrence.RecurrenceInterval" ng-required="vm.Recurrence.RecurrenceType=='Monthly' && vm.Recurrence.MonthlyPattern=='Date'" valid-number ng-pattern="/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/" maxlength="3" />
+                    </div> month(s)
+                </div>
+                <br />
+                <div>
+                    <input type="radio" name="{{'MonthlyPattern'+$index}}" value="Instance" ng-model="vm.Recurrence.MonthlyPattern"> The <select ng-model="vm.Recurrence.Instance" ng-options="objInstance.Value as objInstance.Name for objInstance in vm.Instances" class="input-sm"></select>&nbsp;<select ng-model="vm.Recurrence.RecurrenceDay" ng-options="objDay.Value as objDay.Name for objDay in vm.Days" class="input-sm"></select> of every
+                    <div class="RecurrenceTextBoxContainer" ng-class="{ 'has-error' : (AddTaskForm.monthlyMonthRecurrenceInterval.$error.required || AddTaskForm.monthlyMonthRecurrenceInterval.$error.pattern) && (AddTaskForm.monthlyMonthRecurrenceInterval.$dirty) }">
+                        <input type="text" class="input-sm RecurrenceTextBox" name="monthlyMonthRecurrenceInterval" ng-model="vm.Recurrence.RecurrenceInterval" ng-required="vm.Recurrence.RecurrenceType=='Monthly' && vm.Recurrence.MonthlyPattern=='Instance'" valid-number ng-pattern="/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/" maxlength="3" />
+                    </div> month(s)
+                </div>
+                <br />
+            </div>
+            <div ng-show="vm.Recurrence.RecurrenceType=='Yearly'">
+                <div>
+                    <input type="radio" name="{{'YearlyPattern'+$index}}" value="Date" ng-model="vm.Recurrence.YearlyPattern"> Every <select ng-model="vm.Recurrence.RecurrenceMonth" ng-options="objMonth.Value as objMonth.Name for objMonth in vm.Months" class="input-sm"></select>
+                    <div class="RecurrenceTextBoxContainer" ng-class="{ 'has-error' : (AddTaskForm.MonthlyRecurrenceInterval.$error.required || AddTaskForm.MonthlyRecurrenceInterval.$error.pattern) && (AddTaskForm.MonthlyRecurrenceInterval.$dirty) }">
+                        <input type="text" class="input-sm RecurrenceTextBox" name="MonthlyRecurrenceInterval" ng-model="vm.Recurrence.RecurrenceDate" ng-required="vm.Recurrence.RecurrenceType=='Yearly' && vm.Recurrence.MonthlyPattern=='Date'" valid-number ng-pattern="/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/" maxlength="3" />
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <input type="radio" name="{{'YearlyPattern'+$index}}" value="Instance" ng-model="vm.Recurrence.YearlyPattern"> The <select ng-model="vm.Recurrence.Instance" ng-options="objInstance.Value as objInstance.Name for objInstance in vm.Instances" class="input-sm"></select>&nbsp;<select ng-model="vm.Recurrence.RecurrenceDay" ng-options="objDay.Value as objDay.Name for objDay in vm.Days" class="input-sm"></select> of every <select ng-model="vm.Recurrence.RecurrenceMonth" ng-options="objMonth.Value as objMonth.Name for objMonth in vm.Months" class="input-sm"></select>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <hr class="RecurrenceSectionsSeparator" />
+    <div class="row RecurrencePatternSubHeading">
+        Range of Recurrence
+    </div>
+    <div class="row bottom10">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+            <label class="col-xs-4 col-sm-3 col-md-3 col-lg-3">Start </label>
+            <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9">
+                <p class="input-group">
+                    <input type="text" class="input-sm form-control" name="RecurrenceStartDate" uib-datepicker-popup="{{DateFormat}}" ng-required="true" is-date readonly ng-model="vm.Recurrence.RecurrenceStartDate" is-open="vm.Recurrence.RecurrenceStartDateOpened" datepicker-options="dateOptions" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="vm.OpenRecurrenceStartDate(vm.Recurrence,$event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              <div class="clearfix bottom10">
+                <label class=" col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    <input type="radio" name="{{'RecurrenceRange'+$index}}" value="NoOfOccurrences" ng-model="vm.Recurrence.RecurrenceRange"> End after <br />
+                </label>
+                <div class="col-xs-8 col-sm-9 col-md-6 col-lg-6">
+                    <input type="text" ng-model="vm.Recurrence.NoOfOccurrences" class="input-sm RecurrenceTextBox" ng-required="vm.Recurrence.RecurrenceRange=='NoOfOccurrences'" valid-number ng-pattern="/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/" maxlength="3" /> occurrences
+                </div>
+            </div>
+            <div class="clearfix">
+                <label class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    <input type="radio" name="{{'RecurrenceRange'+$index}}" value="RecurrenceEndDate" ng-model="vm.Recurrence.RecurrenceRange"> End by
+                </label>
+                <div class="col-xs-8 col-sm-9 col-md-6 col-lg-6">
+                    <p class="input-group">
+                        <input type="text" class="input-sm form-control" name="RecurrenceEndDate" uib-datepicker-popup="{{DateFormat}}" ng-required="vm.Recurrence.RecurrenceRange=='RecurrenceEndDate'" is-date readonly ng-model="vm.Recurrence.RecurrenceEndDate" is-open="vm.Recurrence.RecurrenceEndDateOpened" min-date="vm.Recurrence.RecurrenceStartDate" datepicker-options="dateOptions" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="vm.OpenRecurrenceEndDate(vm.Recurrence,$event)"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="RecurrenceSectionsSeparator" />
+    <div class="row RecurrencePatternSubHeading">
+        Recurrence Time
+    </div>
+    <div class="row" ng-show="vm.Recurrence.RecurrenceType!='Weekly'">
+        <div class="clearfix" ng-repeat="objTiming in vm.Recurrence.Timings">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                    <label class="RecurrenceTimeLabel">Start </label>
+                    <div class="RecurrenceTimeControl">
+                        <uib-timepicker ng-model="objTiming.StartTime" hour-step="1" minute-step="1" show-meridian="true"></uib-timepicker>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                    <label class="RecurrenceTimeLabel">End </label>
+                    <div class="RecurrenceTimeControl">
+                        <uib-timepicker ng-model="objTiming.EndTime" hour-step="1" minute-step="1" show-meridian="true"></uib-timepicker>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 RecurrenceRemoveButton">
+                    <span class="Clickable pull-right" ng-click="vm.RemoveTiming(vm.Recurrence,$index)" ng-show="vm.Recurrence.Timings.length > 1"><i class="fa fa-trash-o"></i></span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="$index != vm.Recurrence.Timings.length-1">
+                <hr class="RecurrenceTimingsSeparator" />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <span class="Clickable RecurrenceAddButton pull-right" ng-click="vm.AddTiming(vm.Recurrence)"><i class="fa fa-plus"></i> Add</span>
+        </div>
+    </div>
+    <div class="row" ng-show="vm.Recurrence.RecurrenceType=='Weekly'">
+        <div ng-repeat="objWeekDayTimings in vm.Recurrence.SelectedWeekDayTimings">
+            <span class="WeekDayName">{{vm.Days[vm.Recurrence.SelectedWeekDays[$index]].Name}}</span>
+            <div class="clearfix" ng-repeat="objTiming in objWeekDayTimings">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                        <label class="RecurrenceTimeLabel">Start :</label>
+                        <div class="RecurrenceTimeControl">
+                            <uib-timepicker ng-model="objTiming.StartTime" hour-step="1" minute-step="1" show-meridian="true"></uib-timepicker>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                        <label class="RecurrenceTimeLabel">End :</label>
+                        <div class="RecurrenceTimeControl">
+                            <uib-timepicker ng-model="objTiming.EndTime" hour-step="1" minute-step="1" show-meridian="true"></uib-timepicker>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 RecurrenceRemoveButton">
+                        <span class="Clickable pull-right" ng-click="vm.RemoveWeekDayTiming(objWeekDayTimings,$index)" ng-show="objWeekDayTimings.length > 1"><i class="fa fa-trash-o"></i></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="$index != objWeekDayTimings.length-1">
+                    <hr class="RecurrenceTimingsSeparator" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span class="Clickable RecurrenceAddButton pull-right" ng-click="vm.AddWeekDayTiming(objWeekDayTimings)"><i class="fa fa-plus"></i> Add</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="$index != vm.Recurrence.SelectedWeekDayTimings.length-1">
+                <hr class="RecurrenceSectionsSeparator" />
+            </div>
+        </div>
+    </div>
+    <hr class="RecurrenceSectionsSeparator" />
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <label class="col-sm-3 control-label">File Upload</label>
+            <div class="col-sm-9">
+                <div>
+                    <input type="file" file-model = "myFile" image="vm.InterventionFile" name="AdhocInterventionFileUpload" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>   
+    <hr class="RecurrenceSectionsSeparator" />
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.SaveRecurrencePattern()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.CloseRecurrencePattern()">Cancel</button>
+</div>

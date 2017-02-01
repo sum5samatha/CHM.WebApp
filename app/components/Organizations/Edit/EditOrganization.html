@@ -1,0 +1,52 @@
+﻿<h4>
+    <i class="fa fa-user"></i> Edit Organization
+</h4>
+<div class="row">
+    <form class="form-horizontal" name="myform" id="myform">
+        <div class="form-group">
+            <label for="txtOrganizationName" class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.OrganizationName.$error.required && (myform.OrganizationName.$dirty) }">
+                <input type="text" name="OrganizationName" ng-maxlength="60"  ng-required="true" class="form-control" id="txtOrganizationName" ng-model="vm.Organization.Name" placeholder="Organization Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtOrganizationDescription" class="col-sm-3 control-label">Description</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.OrganizationDescription.$error.required && (myform.OrganizationDescription.$dirty) }">
+                <input type="text" name="OrganizationDescription" ng-maxlength="120" ng-required="true" class="form-control" id="txtOrganizationDescription" ng-model="vm.Organization.Description" placeholder="Organization Description">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtOrganizationAddress" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.OrganizationAddress.$error.required && (myform.OrganizationAddress.$dirty) }">
+                <input type="text" name="OrganizationAddress" multiple ng-maxlength="220" ng-required="true" class="form-control" id="txtOrganizationAddress" ng-model="vm.Organization.Address" placeholder="Organization Address">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtOrganizationContactName" class="col-sm-3 control-label">Contact Name</label>
+            <div class="col-sm-9"  ng-class="{ 'has-error' : (myform.OrganizationContactName.$error.required || myform.OrganizationContactName.$error.pattern) && (myform.OrganizationContactName.$dirty) }">
+                <input type="text" name="OrganizationContactName" ng-required="true"  ng-pattern="/^[a-zA-Z\s]*$/"  ng-maxlength="30" class="form-control" id="txtOrganizationContactName" ng-model="vm.Organization.ContactName" placeholder="Organization Contact Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtOrganizationContactPhone" class="col-sm-3 control-label">Contact Phone</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : ( myform.OrganizationContactPhone.$error.required || myform.OrganizationContactPhone.$error.pattern || myform.OrganizationContactPhone.$error.minlength || myform.OrganizationContactPhone.$error.maxlength) && (myform.OrganizationContactPhone.$dirty) }">
+                <input type="text" name="OrganizationContactPhone" ng-pattern="/^[0-9-]+$/" ng-maxlength="15"  ng-minlength="10" ng-required="true" class="form-control" id="txtOrganizationContactPhone" ng-model="vm.Organization.ContactPhone" placeholder="Organization Contact Phone">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtOrganizationContactEmail" class="col-sm-3 control-label">Contact Email</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : (myform.OrganizationContactEmail.$error.required || myform.OrganizationContactEmail.$error.pattern) && (myform.OrganizationContactEmail.$dirty) }">
+                <input type="email" name="OrganizationContactEmail" ng-required="true" ng-pattern="/^\w.+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" class="form-control" id="txtOrganizationContactEmail" ng-model="vm.Organization.ContactEmail" placeholder="Organization Contact Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10"></div>
+            <div class="col-sm-1">
+                <button type="button" class="btn btn-primary pull-right" ng-disabled="myform.$invalid" ng-click="vm.UpdateOrganization(vm.Organization)">Update</button>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn btn-primary" ng-click="vm.Cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

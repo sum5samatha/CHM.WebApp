@@ -1,0 +1,60 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.CloseRecurrencePattern()">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+
+    </button>
+    <h4 class="modal-title">Edit Intervention</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="txtIntervention" class="col-sm-3 control-label">Intervention</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" readonly ng-model="vm.InterventionData[0].Name" id="txtIntervention" placeholder="Intervention" />
+                </div>
+            </div>         
+        </form>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="txtIntervention" class="col-sm-3 control-label">Date </label>
+                <div class="col-sm-6">
+                    <p class="input-group">
+                        <input type="text" class="input-sm form-control" name="RecurrenceStartDate" uib-datepicker-popup="{{DateFormat}}" is-date readonly ng-model="vm.InterventionData[0].StartDate" is-open="vm.InteventionDateOpened" datepicker-options="dateOptions" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="vm.OpenRecurrenceStartDate($event)"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            
+        </form>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <label class="RecurrenceTimeLabel">Start :</label>
+                    <div class="RecurrenceTimeControl">
+                        <uib-timepicker ng-model="vm.InterventionData[0].StartTime" hour-step="1" minute-step="1" show-meridian="true"></uib-timepicker>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form class="form-horizontal">
+            <div class="form-group ">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <label class="RecurrenceTimeLabel">End :</label>
+                    <div class="RecurrenceTimeControl">
+                        <uib-timepicker ng-model="vm.InterventionData[0].EndTime" hour-step="1" minute-step="1" show-meridian="true"></uib-timepicker>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.UpdateIntervention(vm.InterventionData[0])">Update</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.CloseRecurrencePattern()">Cancel</button>
+</div>

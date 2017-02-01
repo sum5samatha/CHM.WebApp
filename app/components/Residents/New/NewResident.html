@@ -1,0 +1,341 @@
+﻿<h4>
+    <i class="fa fa-user"></i> New Resident
+</h4>
+
+<uib-accordion close-others="vm.OpenOnlyOneSection" class="">
+    <uib-accordion-group is-open="vm.PersonalInformation.open">
+        <uib-accordion-heading>
+            <div class="">
+                Personal Information
+                <i class="pull-right fa" ng-class="{'fa-chevron-circle-down': vm.PersonalInformation.open, 'fa-chevron-circle-right': !vm.PersonalInformation.open}"></i>
+            </div>
+        </uib-accordion-heading>
+
+
+        <form class="form-horizontal" name="myform" id="myform">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">First Name</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.ResidentName.$error.required ||  myform.ResidentName.$error.minlength || myform.ResidentName.$error.maxlength || myform.ResidentName.$error.pattern) && (myform.ResidentName.$dirty) }">
+                        <input type="text" name="ResidentName" class="form-control"  ng-minlength="2" ng-maxlength="25"  ng-pattern="/^[a-zA-Z\s]*$/" ng-required="true" ng-model="vm.Resident.FirstName" placeholder="First Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Last Name</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.LastName.$error.required ||  myform.LastName.$error.minlength || myform.LastName.$error.maxlength || myform.LastName.$error.pattern) && (myform.LastName.$dirty) }">
+                        <input type="text" name="LastName" class="form-control" ng-minlength="2" ng-required="true" ng-maxlength="25" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="vm.Resident.LastName" placeholder="Last Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Preferred to be called as</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.ResidentNickName.$error.required ||  myform.ResidentNickName.$error.minlength || myform.ResidentNickName.$error.maxlength || myform.ResidentNickName.$error.pattern) && (myform.ResidentNickName.$dirty) }">
+                        <input type="text" name="ResidentNickName" ng-minlength="2" ng-maxlength="25" class="form-control" ng-required="true" ng-model="vm.Resident.NickName" ng-pattern="/^[a-zA-Z\s]*$/"  placeholder="Preferered to be called as" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Gender</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.Gender.$error.required) && (myform.Gender.$dirty) }">
+                        <select class="form-control" name="Gender" ng-model="vm.Resident.Gender" ng-required="!Select">
+                            <option value=''>Select</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Photo</label>
+                    <div class="col-sm-9">
+                        <div>
+                            <input name="ResidentPhoto" type="file" required accept="image/*" image="vm.ResidentImage" class="form-control" />
+                        </div>
+                        <div>
+                            <img ng-show="vm.ResidentImage" ng-src="{{vm.ResidentImage.url}}" type="{{vm.ResidentImage.file.type}}" alt="Photo" class="img-responsive" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Date of Birth</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : myform.DOB.$error.required && (myform.DOB.$dirty) }">
+                        <p class="input-group">
+                            <input type="text" name="DOB" class="form-control input-sm" is-date readonly ng-required="true" uib-datepicker-popup="{{DateFormat}}" ng-model="vm.DOB" is-open="vm.DOBOpened" datepicker-options="dateDOBOptions" close-text="Close" max-date="vm.EndDate" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-sm" ng-click="vm.openDOB($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Date of Admission</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : myform.DOB.$error.required && (myform.DOB.$dirty) }">
+                        <p class="input-group">
+                            <input type="text" name="DOB" class="form-control input-sm" is-date readonly ng-required="true" uib-datepicker-popup="{{DateFormat}}" ng-model="vm.DOJ" is-open="vm.DOAOpened" datepicker-options="dateDOAOptions" close-text="Close" max-date="vm.EndDate" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-sm" ng-click="vm.openDOA($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">NHS Number</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.NHS.$error.required ||  myform.NHS.$error.pattern || myform.NHS.$error.maxlength) && (myform.NHS.$dirty) }">
+                        <input type="text" name="NHS" class="form-control" ng-minlength="2" ng-model="vm.Resident.NHS" ng-pattern="/^[0-9-]+$/" ng-maxlength="15" placeholder="NHS Number">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Admitted From</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : myform.DOB.$error.required && (myform.DOB.$dirty) }">
+                        <p class="input-group">
+                            <input type="text" name="" class="form-control input-sm" is-date readonly ng-required="true" uib-datepicker-popup="{{DateFormat}}" ng-model="vm.AdmittedFrom" is-open="vm.AdmittedOpened" datepicker-options="dateAdmittedOptions" close-text="Close" max-date="vm.EndDate" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-sm" ng-click="vm.openAdmittedFrom($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Telephone Number</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.telephone.$error.required || myform.telephone.$error.pattern || myform.telephone.$error.minlength || myform.telephone.$error.maxlength) && (myform.telephone.$dirty) }">
+                        <input type="text" name="telephone" class="form-control" ng-required="true" valid-number ng-pattern="/^\d+$/" ng-maxlength="15" ng-minlength="10" ng-model="vm.Resident.Telephone" placeholder="Telephone Number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Mobile Number</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.mobileNo.$error.required || myform.mobileNo.$error.pattern || myform.mobileNo.$error.minlength || myform.mobileNo.$error.maxlength ) && myform.mobileNo.$dirty }">
+                        <input type="text" name="mobileNo" class="form-control" ng-pattern="/^\d+$/"  ng-maxlength="15" ng-minlength="10" ng-model="vm.Resident.Mobile" placeholder="Mobile Number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtGPAddress" class="col-sm-3 control-label">GP Address</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : myform.gpAddress.$error.required && (myform.gpAddress.$dirty) }">
+                        <textarea class="form-control" name="gpAddress" id="txtGPAddress" ng-maxlength="30" ng-required="true" ng-model="vm.Resident.GPDetails" placeholder="GP Address"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtNok" class="col-sm-3 control-label">Nok</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : myform.nok.$error.required && (myform.nok.$dirty) }">
+                        <input type="text" name="nok" class="form-control" ng-maxlength="30" ng-required="true" ng-model="vm.Resident.Nok" placeholder="Next of kin">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtNokTelephoneNumber" class="col-sm-3 control-label">Nok Telephone Number</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : (myform.nokTelephoneNumber.$error.required || myform.nokTelephoneNumber.$error.maxlength|| myform.nokTelephoneNumber.$error.minlength|| myform.nokTelephoneNumber.$error.pattern) && myform.nokTelephoneNumber.$dirty}">
+                        <input type="text" class="form-control" name="nokTelephoneNumber" ng-required="true" ng-pattern="/^\d+$/" ng-maxlength="15" ng-minlength="10" ng-model="vm.Resident.NokTelephoneNumber" placeholder="Nok TelephoneNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtNokAddress" class="col-sm-3 control-label">Nok Address</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : myform.nokAddress.$error.required && (myform.nokAddress.$dirty) }">
+                        <input type="text" name="nokAddress" class="form-control" ng-maxlength="60" ng-required="true" ng-model="vm.Resident.NokAddress" placeholder="Nok Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtNokPreferred" class="col-sm-3 control-label">Nok Preferred Contact Time</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" maxlength="15" ng-model="vm.Resident.NokPreferred" placeholder="Nok Preferred Contact Time">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtSocialWorker" class="col-sm-3 control-label">Social Worker</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" maxlength="30" ng-model="vm.Resident.SocialWorker" placeholder="SocialWorker">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtReasonForAdmission" class="col-sm-3 control-label">Description of past and present medical history and diagnosis.</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="txtDescription" ng-model="vm.Resident.MedicalHistory" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtReasonForAdmission" class="col-sm-3 control-label">Reason For Admission</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" maxlength="30" id="txtReasonForAdmission" ng-model="vm.Resident.ReasonForAdmission" placeholder="Reason For Admission"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-danger pull-right" ng-click="vm.Redirect();">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary pull-right" ng-disabled="myform.$invalid" ng-click="vm.SavePersonalInformation()">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </uib-accordion-group>
+           <uib-accordion-group is-open="status.open" ng-repeat="objSection in vm.Sections| orderBy : 'DisplayOrder'" ng-hide="true">
+            <uib-accordion-heading>
+                <div class="">
+                    {{objSection.Name}}
+                    <i class="pull-right fa" ng-class="{'fa-chevron-circle-down': status.open, 'fa-chevron-circle-right': !status.open}"></i>
+                </div>
+            </uib-accordion-heading>
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="objSection_Question in objSection.Sections_Questions | orderBy: 'DisplayOrder'">
+                    <div class="main col-lg-12">
+                        <div class="col-lg-6">
+                            <ul>
+                                <li class="alignradio"> {{objSection_Question.Question}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <div ng-if="objSection_Question.AnswerType == 'RadioButtonList'">
+                                <div class="InlineDiv" ng-repeat="objSection_Question_Answer in objSection_Question.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-model="objSection_Question.ChosenAnswer" ng-change="vm.RadioButtonChange(objSection_Question)" name="{{'Section_Question_Answer' + objSection_Question.ID}}" value="{{objSection_Question_Answer.ID}}">{{objSection_Question_Answer.LabelText}}
+                                    </label>
+                                </div>
+
+
+                            </div>
+                            <div ng-if="objSection_Question.AnswerType == 'DropDownList'">
+                                <select ng-options="objSection_Question_Answer.ID as objSection_Question_Answer.LabelText for objSection_Question_Answer in objSection_Question.Sections_Questions_Answers | orderBy:'DisplayOrder'" ng-model="objSection_Question.ChosenAnswer" id="ddllanguage">
+                                    <option value=''>Select</option>
+                                </select>
+                            </div>
+                            <div ng-if="objSection_Question.AnswerType == 'Yes/No'">
+                                <toggle-switch ng-model="objSection_Question.ChosenAnswer" ng-change="vm.ToggleSwitchChange(objSection_Question)" off-label="No" on-label="Yes"></toggle-switch>
+                            </div>
+                            <div ng-if="objSection_Question.AnswerType == 'FileUpload'">
+
+                                <input type="file" file-model="objSection_Question.ChosenAnswer" name="fileAttachment" />
+                            </div>
+                            <div ng-if="objSection_Question.AnswerType == 'FreeText'">
+                                <textarea ng-model="objSection_Question.ChosenAnswer" class="form-control input-sm" ng-change="vm.textBoxChange(objSection_Question,null)"></textarea>
+                            </div>
+                            <div ng-if="objSection_Question.AnswerType == 'CheckBoxList'">
+                                <div class="InlineDiv" ng-repeat="objSection_Question_Answer in objSection_Question.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" ng-model="objSection_Question_Answer.ChosenAnswer" ng-checked="objSection_Question_Answer.ChosenAnswer" name="{{'Section_Question_Answer' + objSection_Question.ID}}" ng-change="vm.CheckBoxChange(objSection_Question,objSection_Question_Answer)" value="{{objSection_Question_Answer.ID}}">{{objSection_Question_Answer.LabelText}}
+                                        <textarea class="form-control input-sm" ng-model="objSection_Question.txtAreaAnswer" ng-if="objSection_Question_Answer.AnswerType=='FreeText' && objSection_Question_Answer.ChosenAnswer" ng-change="vm.textBoxChange(objSection_Question,objSection_Question_Answer)"></textarea>
+                                    </label>
+
+                                </div>
+
+
+                            </div>
+                            <div ng-if="objSection_Question.AnswerType == 'Number'">
+                                <input type="text" ng-model="objSection_Question.ChosenAnswer" class="form-control input-sm" />
+
+                            </div>
+
+
+                        </div>
+                        <!--<div ng-repeat="objSection_Question_Answer in objSection_Question.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                            <div ng-if="objSection_Question_Answer.Sections_Questions1">
+                                <div ng-repeat="objSubQuestion in objSection_Question_Answer.Sections_Questions1" ng-include="'SubQuestion'">
+                                </div>
+                            </div>
+                        </div>-->
+                        <div ng-if="objSection_Question.MaxScore==null && objSection_Question.MinScore==null" ng-repeat="objSection_Question_Answer in objSection_Question.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                            <div ng-if="objSection_Question_Answer.childQuestion">
+
+                                <div ng-repeat="objSubQuestion in objSection_Question_Answer.childQuestion| orderBy: 'DisplayOrder'" ng-include="'SubQuestion'">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="objSection_Question.MaxScore!=null && objSection_Question.MinScore!=null">
+
+                            <div ng-repeat="objSubQuestion in objSection_Question.childQuestion| orderBy: 'DisplayOrder'" ng-include="'SubQuestion'">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script type="text/ng-template" id="SubQuestion">
+                    <div class="main col-lg-12" ng-show="objSubQuestion.MinScore!=null?vm.ShowChildQuestionQuestion(objSubQuestion,$parent.$parent.$parent.$parent.$parent.$parent):(objSubQuestion.ParentAnswerID==$parent.$parent.$parent.$parent.objSection_Question.ChosenAnswerID|| $parent.$parent.$parent.$parent.objSection_Question.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1 )||(objSubQuestion.ParentAnswerID==$parent.$parent.$parent.$parent.objSubQuestion.ChosenAnswerID || $parent.$parent.$parent.$parent.objSubQuestion.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1)||(objSubQuestion.ParentAnswerID==$parent.$parent.objSection_Question.ChosenAnswerID|| $parent.$parent.objSection_Question.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1 )||(objSubQuestion.ParentAnswerID==$parent.$parent.objSubQuestion.ChosenAnswerID || $parent.$parent.objSubQuestion.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1)">
+
+                        <div class="col-lg-6">
+                            <ul>
+                                <li class="alignradio"> {{objSubQuestion.Question}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <div ng-if="objSubQuestion.AnswerType == 'RadioButtonList'">
+                                <div class="InlineDiv">
+                                    <label class="radio-inline" ng-repeat="objSubQuestionAnswer in objSubQuestion.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                                        <input type="radio" ng-model="objSubQuestion.ChosenAnswer" ng-change="vm.RadioButtonChange(objSubQuestion)" name="{{'objSubQuestionAnswer' +  objSubQuestion.ID}}" value="{{objSubQuestionAnswer.ID}}">{{objSubQuestionAnswer.LabelText}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-if="objSubQuestion.AnswerType == 'DropDownList'">
+                                <select ng-options="objSubQuestionAnswer.ID as objSubQuestionAnswer.LabelText for objSubQuestionAnswer in objSubQuestion.Sections_Questions_Answers | orderBy: 'DisplayOrder'" ng-model="objSubQuestion.ChosenAnswer" id="ddllanguage">
+                                    <option value=''>Select</option>
+                                </select>
+                            </div>
+                            <div ng-if="objSubQuestion.AnswerType == 'Yes/No'">
+                                <toggle-switch ng-model="objSubQuestion.ChosenAnswer" ng-change="vm.ToggleSwitchChange(objSubQuestion)" off-label="No" on-label="Yes"></toggle-switch>
+                            </div>
+                            <div ng-if="objSubQuestion.AnswerType == 'FileUpload'">
+                                <input type="file" file-model="objSubQuestion.ChosenAnswer" name="fileAttachment" />
+                            </div>
+
+                            <div ng-if="objSubQuestion.AnswerType == 'FreeText'">
+                                <textarea ng-model="objSubQuestion.ChosenAnswer" class="form-control input-sm" ng-change="vm.textBoxChange(objSubQuestion,null)"></textarea>
+                            </div>
+                            <div ng-if="objSubQuestion.AnswerType == 'CheckBoxList'">
+                                <div class="InlineDiv" ng-repeat="objSubQuestionAnswer in objSubQuestion.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" ng-model="objSubQuestionAnswer.ChosenAnswer" ng-checked="objSubQuestionAnswer.ChosenAnswer" name="{{'objSubQuestionAnswer' + objSubQuestion.ID}}" ng-change="vm.CheckBoxChange(objSubQuestion,objSubQuestionAnswer)" value="{{objSubQuestionAnswer.ID}}">{{objSubQuestionAnswer.LabelText}}
+                                        <textarea class="form-control input-sm" ng-model="objSubQuestion.txtAreaAnswer" ng-if="objSubQuestionAnswer.AnswerType=='FreeText'&& objSubQuestionAnswer.ChosenAnswer" ng-change="vm.textBoxChange(objSubQuestion,objSubQuestionAnswer)"></textarea>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div ng-if="objSubQuestion.AnswerType == 'Number'">
+                                <input type="text" ng-model="objSubQuestion.ChosenAnswer" class="form-control input-sm" />
+
+                            </div>
+
+                        </div>
+                        <!--<div ng-repeat="objSubQuestionAnswer in objSubQuestion.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                            <div ng-if="objSubQuestionAnswer.Sections_Questions1">
+                                <div ng-repeat="objSubQuestion in objSubQuestionAnswer.Sections_Questions1" ng-include="'SubQuestion'">
+                                </div>
+                            </div>
+                        </div>-->
+                        <div ng-if="objSection_Question.MaxScore==null && objSection_Question.MinScore==null" ng-repeat="objSubQuestionAnswer in objSubQuestion.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                            <div ng-if="objSubQuestionAnswer.childQuestion">
+                                <div ng-repeat="objSubQuestion in objSubQuestionAnswer.childQuestion| orderBy: 'DisplayOrder'" ng-include="'SubQuestion'">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div ng-if="objSection_Question.MaxScore!=null && objSection_Question.MinScore!=null">
+
+                            <div ng-repeat="objSubQuestion in objSubQuestion.childQuestion| orderBy: 'DisplayOrder' " ng-include="'SubQuestion'">
+                            </div>
+                        </div>
+                    </div>
+                </script>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary pull-right" ng-disabled="!vm.ResidentId" ng-click="vm.SaveAssessmentData(objSection)">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </uib-accordion-group>
+</uib-accordion>
+
+
+        <div class="row bottom10" ng-hide="true">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a ng-disabled="!vm.ResidentId" ui-sref="RiskAssessmentSummary({ResidentId:'{{vm.ResidentId}}'})" class="btn btn-primary pull-right">
+                    View Summary
+                </a>
+            </div>
+        </div>
+
+

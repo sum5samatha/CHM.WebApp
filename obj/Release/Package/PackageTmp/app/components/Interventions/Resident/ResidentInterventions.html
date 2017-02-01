@@ -1,0 +1,189 @@
+﻿<h4>
+    
+    <i class="fa fa-tasks"></i> Interventions - {{vm.Resident.FirstName}} {{vm.Resident.LastName}}&nbsp;&nbsp;&nbsp;
+    <a ui-sref="ResidentDocumentViewer({ResidentId:'{{vm.ResidentId}}'})" data-toggle="tooltip" data-placement="top" title="Resident Documents"><i class="fa fa-file-text-o"></i></a>&nbsp;
+    <a ui-sref="ViewResident({ResidentId:'{{vm.ResidentId}}'})" data-toggle="tooltip" data-placement="top" title="View Resident"><i class="fa fa-eye"></i></a>&nbsp;
+    <i class="fa fa-print" ng-click="vm.PrintElem('#mydiv')" data-toggle="tooltip" data-placement="top" title="Print"></i>
+   <!--<i class="fa fa-trash-o cursor" ng-click="vm.DeleteResident(objResident)"  data-toggle="tooltip" data-placement="top" title="Delete Resident"></i>-->
+</h4>
+
+<div  class="row bottom10">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 zeroPadding">
+        <img ng-src="{{RootUrl + vm.PhotoUrl}}" alt="" class="img-responsive ResidentPic" />
+    </div>
+    <div  class="col-xs-10 col-sm-10 col-md-10 col-lg-10 PaddingLeft25">
+        <h5>{{vm.Resident.FirstName}} {{vm.Resident.LastName}}</h5>
+        <!--<i class="fa fa-user" ng-show="vm.Summary.length>0" style="cursor:pointer;" ng-click="vm.ViewSummary();">View Summary</i>-->
+
+        <div ng-repeat="objSummary in vm.Summary track by $index">
+            <h5 ng-if="$index<=3">{{vm.BindSummaary(objSummary)}}</h5>
+            <a ng-if="$index==4" style="color:#5cc1af;" ng-show="vm.ReadHide" ng-click="vm.ReadMoreClick();">Read More....</a>
+            <h5 ng-if="$index>=4" ng-hide="vm.ReadHide">{{vm.BindSummaary(objSummary)}}</h5>
+            <a ng-if="$index==vm.Summary.length-1" style="color:#5cc1af;" ng-hide="vm.ReadHide" ng-click="vm.ReadLessClick();">Read Less....</a>
+        </div>
+        
+    </div>
+    <!--<div id="mydiv">
+        <h5>{{vm.Resident.FirstName}} {{vm.Resident.LastName}}</h5>
+    </div>-->
+    <!--<input type="button" value="Print Div" ng-click="vm.PrintElem('#mydiv');" />-->
+
+</div>
+
+<div class="row" >
+    <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 TaskIcon" ng-repeat="objIntervention in vm.Interventions | orderBy: 'PlannedStartDate'" ng-class="vm.CompareDate(objIntervention.PlannedStartDate,objIntervention.Status)?'UnInitiatedTask':(objIntervention.Status == 'Completed' ? 'Complete' : (objIntervention.Status== 'PartiallyCompleted' ? 'PartiallyComplete' : (objIntervention.Status== 'NotCompleted' ?'Incomplete':' ')))">
+        <span class="label label-info" ng-click="vm.Review();" ng-if="objIntervention.PlannedStartDate==objIntervention.PlannedEndDate">Review</span>
+        <div>
+            {{objIntervention.PlannedStartDate | date : 'hh:mm a'}}
+        </div>
+        <div ng-bind-html="objIntervention.Actions_Days.Action.Section_Intervention.InterventionIcon" ng-click="vm.EditIntervention(objIntervention.ID,objIntervention.Actions_Days.Action.Section_Intervention.InterventionTitle,objIntervention.Actions_Days.Action.Section_Intervention.ID)">
+        </div>
+        <div>
+            {{objIntervention.Actions_Days.Action.Section_Intervention.InterventionTitle}}
+        </div>
+       
+
+    </div>
+</div>
+<div class="row"  id="mydiv">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <fieldset>
+            <legend style="color:#5cc1af;">Personal Information:</legend>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">First Name: {{vm.Resident.FirstName}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Last Name: {{vm.Resident.LastName}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Preferred to be called as: {{vm.Resident.NickName}}</label>
+            </div>
+            <div  class="form-group">
+                <label class="col-sm-3 control-label">Gender:{{vm.Resident.Gender == 'M' ? 'Male' : 'Female'}}</label>
+            </div>
+            <div ng-hide="true" class="form-group">
+                   <label ng-hide="true" class="col-sm-3 control-label">Photo</label>
+                    <div ng-hide="true" class="col-sm-9 form-control-as-label">
+                        <img ng-src="{{RootUrl + vm.PhotoUrl}}" alt="photo" class="img-responsive" />
+                    </div>
+               
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Date of Birth:{{vm.Resident.DOB | date : DateFormat}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Telephone Number:{{vm.Resident.Telephone}}</label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Mobile Number:{{vm.Resident.Mobile}}</label>
+            </div>
+            <div class="form-group">
+                <label for="txtGPAddress" class="col-sm-3 control-label">GP Address:{{vm.Resident.GPDetails}}</label>
+            </div>
+            <div class="form-group">
+                <label for="txtNok" class="col-sm-3 control-label">Nok:{{vm.Resident.Nok}}</label>
+            </div>
+            <div class="form-group">
+                <label for="txtNokTelephoneNumber" class="col-sm-3 control-label">Nok Telephone Number:{{vm.Resident.NokTelephoneNumber}}</label>
+            </div>
+            <div class="form-group">
+                <label for="txtNokAddress" class="col-sm-3 control-label">Nok Address:{{vm.Resident.NokAddress}}</label>
+            </div>
+            <div class="form-group">
+                <label for="txtNokPreferred" class="col-sm-3 control-label">Nok Preferred Contact Time:{{vm.Resident.NokPreferred}}</label>
+            </div>
+            <div class="form-group">
+                <label for="txtSocialWorker" class="col-sm-3 control-label">Social Worker:{{vm.Resident.SocialWorker}}</label>
+            </div>
+            <div class="form-group">
+                <label for="txtReasonForAdmission" class="col-sm-3 control-label">Reason For Admission:{{vm.Resident.ReasonForAdmission}}</label>
+            </div>
+        </fieldset>
+    </div>  
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="objSection in vm.NewSections| orderBy : 'DisplayOrder'">
+        <fieldset>
+            <legend style="color:#5cc1af;">{{objSection.Name}}:</legend>
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="objSection_Question in objSection.Sections_Questions | orderBy: 'DisplayOrder'">
+                    <div class="form-group">
+                        <label class="col-sm-9" ng-if="objSection_Question.AnswerText" ng-bind-html="vm.BindSectionQuestion(objSection_Question.Question,0)"></label>
+                        <div class="col-sm-3 form-control-as-label">
+                            <div ng-if="!objSection_Question.ChosenAnswer">
+                                {{vm.BindSectionQuestionAnswer(objSection_Question.AnswerText)}}
+                            </div>
+                            <div ng-if="objSection_Question.ChosenAnswer">
+                                <a target="_blank" href="{{RootUrl + objSection_Question.ChosenAnswer}}">{{vm.BindSectionQuestionAnswer(objSection_Question.AnswerText)}}</a>
+                            </div>
+                        </div>
+                        <div ng-if="objSection_Question.MinScore==null" ng-repeat="objSection_Question_Answer in objSection_Question.Sections_Questions_Answers| orderBy: 'DisplayOrder'">
+                            <div ng-if="objSection_Question_Answer.childQuestion">
+                                <div ng-repeat="objSubQuestion in objSection_Question_Answer.childQuestion | orderBy: 'DisplayOrder'" ng-include=" 'ViewSubQuestion' ">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="objSection_Question.MinScore!=null">
+                            <div ng-if="objSection_Question.childQuestion">
+                                <div ng-repeat="objSubQuestion in objSection_Question.childQuestion| orderBy: 'DisplayOrder'" ng-include="'ViewSubQuestion'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/ng-template" id="ViewSubQuestion">
+
+
+                    <div ng-show="objSubQuestion.MinScore!=null?vm.ShowChildQuestionQuestion(objSubQuestion,$parent.$parent.$parent.$parent.$parent.$parent.$parent,$parent.$parent.$parent.$parent.$parent.$parent,$parent.$parent.$parent.$parent.$parent.objSubQuestion):(objSubQuestion.ParentAnswerID==$parent.$parent.$parent.$parent.objSection_Question.ChosenAnswerID||$parent.$parent.$parent.$parent.objSection_Question.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1 )||(objSubQuestion.ParentAnswerID==$parent.$parent.$parent.$parent.objSubQuestion.ChosenAnswerID || $parent.$parent.$parent.$parent.objSubQuestion.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1)||(objSubQuestion.ParentAnswerID==$parent.$parent.objSection_Question.ChosenAnswerID|| $parent.$parent.objSection_Question.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1 )||(objSubQuestion.ParentAnswerID==$parent.$parent.objSubQuestion.ChosenAnswerID || $parent.$parent.objSubQuestion.MulChosenAnswerID.indexOf(objSubQuestion.ParentAnswerID)> -1)">
+                        <label class="col-sm-9" ng-if="objSubQuestion.AnswerText" ng-bind-html="vm.BindSectionQuestion(objSubQuestion.Question,$depth)"></label>
+                        <div class="col-sm-3 form-control-as-label">
+                            <div ng-if="!objSubQuestion.ChosenAnswer && !objSubQuestion.SignatureIcon">
+                                {{vm.BindSectionQuestionAnswer(objSubQuestion.AnswerText)}}
+                            </div>
+                            <div ng-if="objSubQuestion.ChosenAnswer">
+                                <a target="_blank" href="{{RootUrl + objSubQuestion.ChosenAnswer}}">{{vm.BindSectionQuestionAnswer(objSubQuestion.AnswerText)}}</a>
+                            </div>
+                            <!--<div ng-if="objSubQuestion.SignatureIcon" ng-bind-html="objSubQuestion.SignatureIcon"></div>-->
+                        </div>
+
+
+                        <div ng-if="objSection_Question.MinScore==null">
+
+                            <div ng-repeat="objSubQuestionAnswer in objSubQuestion.Sections_Questions_Answers | orderBy: 'DisplayOrder'">
+                                <div ng-if="objSubQuestionAnswer.childQuestion && objSubQuestionAnswer.childQuestion.length > 0 ">
+                                    {{objSubQuestion.childQuestion = null}}
+                                    <div ng-repeat="objSubQuestion in objSubQuestionAnswer.childQuestion | orderBy: 'DisplayOrder' " ng-include=" 'ViewSubQuestion' ">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-if="objSubQuestion.childQuestion">
+
+                                <div ng-repeat="objSubQuestion in objSubQuestion.childQuestion| orderBy: 'DisplayOrder' " ng-include="'ViewSubQuestion'">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="objSubQuestion.MinScore!=null">
+                            <div ng-if="objSubQuestion.childQuestion">
+                                <div ng-repeat="objSubQuestion in objSubQuestion.childQuestion| orderBy: 'DisplayOrder'" ng-include="'ViewSubQuestion'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </script>
+
+            </form>
+        </fieldset>
+
+
+        <fieldset ng-if="objSection.Name=='Preferences'">
+            <legend style="color:#5cc1af;" ng-hide="true">Summary:</legend>
+            <div ng-hide="true">
+                <div ng-repeat="objSummary in vm.Summary track by $index">
+                    <h5>{{vm.BindSummaary(objSummary)}}</h5>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

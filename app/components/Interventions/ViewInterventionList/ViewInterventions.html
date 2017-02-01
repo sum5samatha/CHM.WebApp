@@ -1,0 +1,48 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.CloseRecurrencePattern()">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+
+    </button>
+    <h4 class="modal-title">View Intervention</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-9 form-control-as-label">
+                    {{vm.ViewIntervention.Actions_Days.Action.Section_Intervention.InterventionTitle}}
+                </div>
+            </div>
+        </form>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Start Date</label>
+                <div class="col-sm-9 form-control-as-label">
+                    {{vm.ViewIntervention.PlannedStartDate | date}}
+                </div>
+            </div>
+
+        </form>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Start Time</label>
+                <div class="col-sm-9 form-control-as-label">
+                    {{vm.ViewIntervention.PlannedStartDate | date : 'hh:mm a'}}
+                </div>
+            </div>
+        </form>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">End Time</label>
+                <div class="col-sm-9 form-control-as-label">
+                    {{vm.ViewIntervention.PlannedEndDate | date : 'hh:mm a'}}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="vm.CloseRecurrencePattern()">Cancel</button>
+</div>

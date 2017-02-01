@@ -1,0 +1,85 @@
+﻿<h4>
+    <i class="fa fa-user"></i> Edit Users
+</h4>
+<div class="row">
+    <form class="form-horizontal" name="myform" id="myform">
+        <div class="form-group ">
+            <label for="txtFirstName" class="col-sm-3 control-label">FirstName</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.UserName.$error.required && (myform.UserName.$dirty) }">
+                <input type="text" name="UserName" class="form-control" id="txtFirstName" ng-maxlength="30" ng-required="true" ng-model="vm.Users.FirstName" placeholder="First Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtLastName" class="col-sm-3 control-label">LastName</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" ng-maxlength="30" maxlength="30" id="txtLastName" ng-model="vm.Users.LastName" placeholder="Last Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.Email.$error.required && (myform.Email.$dirty) }">
+                <input type="email" name="Email" class="form-control" ng-required="true" id="txtEmail"  ng-model="vm.Users.Email" placeholder="Email">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ddlRole" class="col-sm-3 control-label">Role</label>
+            <div class="col-sm-9">
+                <select id="ddlRole" ng-required="true" ng-options="objRoles.ID as objRoles.Name for objRoles in vm.Roles" ng-model="vm.Users.Users_Roles[0].RoleID" class="form-control"><option value=''>Select</option></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDesignation" class="col-sm-3 control-label">Designation</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.UserDesignation.$error.required && (myform.UserDesignation.$dirty) }">
+                <input type="text" class="form-control" name="UserDesignation" id="txtDesignation" ng-model="vm.Users.Designation" placeholder="Designation">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDOB" class="col-sm-3 control-label">Date of Birth</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.DOB.$error.required && (myform.DOB.$dirty) }">
+                <!--<input type="date" class="form-control" id="txtDOB" ng-model="vm.Users.DOB"  placeholder="Date of Birth">-->
+                <p class="input-group">
+                    <input type="text" name="DOB" class="form-control input-sm" uib-datepicker-popup="{{DateFormat}}" is-date readonly datepicker-options="dateOptions" ng-model="vm.Users.DOB" is-open="vm.DOBOpened" close-text="Close" max-date="vm.EndDate" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="vm.openDOB($event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtTelephoneNumber" class="col-sm-3 control-label">Telephone Number</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.telno.$error.required && (myform.telno.$dirty) }">
+                <input type="text" class="form-control" id="txtTelephoneNumber" name="telno" ng-required="true" ng-pattern="/^\d+$/" ng-maxlength="15" ng-minlength="10" ng-model="vm.Users.TelePhone" placeholder="Telephone Number">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtUserName" class="col-sm-3 control-label">User Name</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.userName.$error.required && (myform.userName.$dirty) }">
+                <input type="text" name="userName" ng-maxlength="30" ng-required="true" class="form-control" id="txtUserName" ng-model="vm.Users.UserName" placeholder="User Name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtPassword" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.userpwd.$error.required && (myform.userpwd.$dirty) }">
+                <input type="password" class="form-control" name="userpwd" id="txtPassword" ng-maxlength="30" ng-pattern="/^[a-zA-Z0-9]*$/" ng-required="true" ng-model="vm.Users.Password" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ddlResident" class="col-sm-3 control-label">Resident</label>
+            <div class="col-sm-9" ng-class="{ 'has-error' : myform.resident.$error.required && (myform.resident.$dirty) }">
+                <select id="ddlResident" name="resident"  ng-options="objResidents.ID as objResidents.FirstName for objResidents in  vm.Residents" ng-model="vm.Users.Residents_Relatives2[0].ResidentID" class="form-control"><option value=''>Select</option></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10">
+
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-primary pull-right" ng-disabled="myform.$invalid" ng-click="vm.UpdateUserInformation(vm.Users)">Update</button>
+                <button type="button" class="btn btn-warning pull-right" ng-click="vm.Cancel()">Cancel</button>
+            </div>
+        </div>
+
+    </form>
+</div>

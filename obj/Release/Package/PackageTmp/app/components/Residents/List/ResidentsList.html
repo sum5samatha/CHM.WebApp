@@ -1,0 +1,53 @@
+﻿<div class="row top10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4 class="pull-left">
+            <i class="fa fa-user"></i> Residents
+        </h4>
+        <div class="input-group col-sm-3 pull-right ">
+           
+            <input type="text" class="form-control" aria-describedby="TxtSearch" ng-model="vm.searchText" placeholder="Search" />
+            <span class="input-group-addon" id="TxtSearch"><i class="fa fa-search" aria-hidden="true"></i></span>
+        </div>
+    </div>
+</div>
+<div class="row top10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <toggle-switch ng-hide="vm.IsSecondaryReadonly" ng-model="vm.ResidentsShowing" off-label="Prospects" on-label="Residents" class="pull-left">
+        </toggle-switch>
+        <div ng-show="(UserInfo.RoleName=='Administrator' || UserInfo.RoleName=='PrimaryUser') ?true:false">
+            <div class="col-sm-2"></div>
+            <a ui-sref="NewResident" class="btn btn-primary pull-right">
+                Add New Prospects
+                <!--{{ vm.ResidentsShowing?'Residents':'Prospects'}}-->
+            </a>
+        </div>
+            <!--<a ui-sref="NewResident" ng-hide="vm.ResidentsShowing" class="btn btn-primary pull-right">
+            Add New {{ vm.ResidentsShowing?'Residents':'Prospects'}}
+        </a>-->
+</div>
+    
+    
+
+</div>
+<div class="row top10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <toggle-switch ng-hide="vm.IsSecondaryReadonly" ng-model="vm.ActiveResidentsShowing" off-label="InActive" on-label="Active" class="pull-right">
+        </toggle-switch>
+        <div class="col-sm-2"></div>
+
+    </div>
+    </div>
+
+    <div class="row top10">
+        <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2" ng-repeat="objResidentWithPhoto in vm.ResidentWithPhoto|orderBy:'Resident.FirstName' |filter : {Resident: {IsAccepted: vm.ResidentsShowing,IsActive:vm.ActiveResidentsShowing}}|filter : vm.search ">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a ui-sref="ResidentInterventions({ResidentId:'{{objResidentWithPhoto.Resident.ID}}'})"><img class="img-responsive ResidentPic" ng-src="{{RootUrl + objResidentWithPhoto.PhotoUrl}}" alt="objResidentWithPhoto.Resident.FirstName"></a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h5 class="center"><a ui-sref="ResidentInterventions({ResidentId:'{{objResidentWithPhoto.Resident.ID}}'})">{{objResidentWithPhoto.Resident.FirstName+ " " +objResidentWithPhoto.Resident.LastName}}</a></h5>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h5 class="center"><a ui-sref="DailyDairy({ResidentId:'{{objResidentWithPhoto.Resident.ID}}'})">Daily Diary</a></h5>
+            </div>
+        </div>
+    </div>

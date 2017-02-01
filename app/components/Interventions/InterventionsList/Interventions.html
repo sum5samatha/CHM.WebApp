@@ -1,0 +1,53 @@
+﻿<h4>
+    <i class="fa fa-file-text"></i> Interventions
+</h4>
+<form class="form-horizontal">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            <label for="ddlResident" class="col-sm-3 control-label">Resident:</label>
+            <div class="col-sm-4">
+                <select id="ddlResident" class="form-control" ng-change="vm.ClearDate();" ng-options="objResidents.ID as objResidents.FirstName for objResidents in  vm.Residents | filter:{IsAccepted:true}" ng-model="vm.ResidentIDs" >
+                    <option value=''>Select</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Date:</label>
+            <div class="col-sm-4">
+                <p class="input-group">
+                    <input type="text" name="DOB1" class="form-control input-sm" is-date readonly ng-required="true" uib-datepicker-popup="{{DateFormat}}" ng-model="vm.InterventionDate" is-open="vm.InterventionDateOpened" datepicker-options="dateOptions" close-text="Close" ng-change="vm.GetInterventionDate(vm.InterventionDate)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="vm.openIntervention($event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " ng-show="vm.show">
+        <div class="col-sm-12 ColoredTable">
+            <table ng-table="AllIntervention" class="table ng-table-responsive">
+                <tbody ng-show="$data.length>0">
+                    <tr ng-repeat="objIntervention in $data">
+                        <td data-title="'S.no'">{{$index+1}}</td>
+                        <td data-title="'Intervention'">{{objIntervention.Actions_Days.Action.Section_Intervention.InterventionTitle}}</td>
+                        <td data-title="'Date'">{{objIntervention.PlannedStartDate | date}}</td>
+                        <td data-title="'StartTime'">{{objIntervention.PlannedStartDate | date : 'hh:mm a'}}</td>
+                        <td data-title="'EndTime'">{{objIntervention.PlannedEndDate | date : 'hh:mm a'}}</td>
+                        <td data-title="'Status'">{{objIntervention.Status}}</td>
+                        <td data-title="'Actions'"><a ng-show="objIntervention.Status=='Pending'" ng-click="vm.EditIntervention(objIntervention);"><i class="fa fa-pencil-square-o"></i></a><a  ng-click="vm.ViewIntervention(objIntervention);"><i class="fa fa-eye"></i></a><a ng-show="objIntervention.Status=='Pending'" ng-click="vm.DeleteIntervention(objIntervention);"><i class="fa fa-trash-o"></i></a></td>
+
+                    </tr>
+                </tbody>
+                <tbody ng-hide="$data.length>0">
+                    <tr>
+                        <td colspan="7">
+                            There are no Interventions.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

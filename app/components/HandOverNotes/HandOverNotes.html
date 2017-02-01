@@ -1,0 +1,77 @@
+﻿<h4>
+    <i class="fa fa-file-text"></i> HandOver Notes
+</h4>
+<form class="form-horizontal">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Date:</label>
+            <div class="col-sm-4">
+                <p class="input-group">
+                    <input type="text" name="DOB" class="form-control input-sm" is-date readonly ng-required="true" uib-datepicker-popup="{{DateFormat}}" ng-model="vm.HandOverNotesDate" is-open="vm.HandOverNotesOpened" datepicker-options="dateOptions" close-text="Close" ng-change="vm.GetHandOverNote(vm.HandOverNotesDate)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="vm.openHandOverNotes($event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-sm-5"></div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <uib-accordion close-others="vm.OpenOnlyOneSection" class="">
+            <uib-accordion-group ng-repeat="objResident in vm.ResidentIntervention" is-open="status.open">
+                <uib-accordion-heading>
+                    <div class="">
+                        {{objResident.Name}}
+                        <i class="pull-right fa" ng-class="{'fa-chevron-circle-down': status.open, 'fa-chevron-circle-right': !status.open}"></i>
+                    </div>
+                </uib-accordion-heading>
+
+                <div class="form-group">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8 ColoredTable">
+                        <!--<i class="fa fa-bars"></i>Summary-->
+                        <!--<div ng-repeat="objSummary in objResident.lstSummary ">
+                            <h5>{{objSummary.Summary}}</h5>
+                        </div>-->
+
+
+
+                        <table ng-table class="table ng-table-responsive">
+                            <tbody ng-show="objResident.lstarryIntervention.length>0">
+                                <tr ng-repeat="objIntervention in objResident.lstarryIntervention | orderBy: 'PlannedStartDate'">
+                                    <td data-title="'Time'">{{objIntervention.PlannedStartDate | date : 'hh:mm a'}}</td>
+                                    <td data-title="'TaskTitle'">{{objIntervention.Actions_Days.Action.Section_Intervention.InterventionTitle}}</td>
+                                    <td data-title="'Status'">{{objIntervention.Status}}</td>
+                                    <td data-title="'Comment'">{{objIntervention.Comments}}</td>
+                                    <td data-title="'Summary'">{{objIntervention.Summary}}</td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-hide="objResident.lstarryIntervention.length>0">
+                                <tr>
+                                    <td colspan="4">
+                                        There are no Tasks.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+
+            </uib-accordion-group>
+        </uib-accordion>
+    </div>
+
+    <div ng-show="UserFirstLogin">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-primary pull-right" ng-click="vm.ResdientList()">
+                    Go to Residents List
+                </button>
+            </div>
+            <div class="col-sm-5"></div>
+        </div>
+    </div>
+</form>
+
+
